@@ -14,12 +14,13 @@ class List extends Component {
 
   render() {
     const {itemsArray, listShow, classes, inputValue} = this.props;
-    let items = itemsArray.filter((item, index)=>{
-      return item.toLowerCase().includes(inputValue.toLowerCase());
-    })
-    .map((item, index)=>{
-      return <ListGroupItem key={index}>{ item }</ListGroupItem>;
-    });
+    let items = itemsArray instanceof Array && 
+                  itemsArray.filter((item, index)=>{
+                    return item.toLowerCase().includes(inputValue.toLowerCase());
+                  })
+                  .map((item, index)=>{
+                    return <ListGroupItem key={index}>{ item }</ListGroupItem>;
+                  });
 
     return (
       <ListGroup 

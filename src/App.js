@@ -12,7 +12,9 @@ class App extends Component {
     super();
     this.images = [];
     this.loader = false;
-    this.prevValues = localStorage.getItem('inputValues').split(',');
+    this.prevValues = localStorage.getItem('inputValues')  === null
+                      ? ''
+                      : localStorage.getItem('inputValues').split(',');
     this.state = {
       inputValue  : '',
       inputUpdated: false,
