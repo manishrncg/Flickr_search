@@ -12,7 +12,6 @@ class App extends Component {
     super();
     this.images = [];
     this.loader = false;
-    // this.listShow = false;
     this.prevValues = localStorage.getItem('inputValues').split(',');
     this.state = {
       inputValue  : '',
@@ -50,7 +49,6 @@ class App extends Component {
     const page = this.state.page;
     this.hideList();
     if (this.isBottom(wrappedElement)) {
-      console.log('body bottom reached');
       this.searchImagesFromFlickr(this.state.inputValue, this.state.page);
       this.setState({
         page: (page+1)
@@ -109,7 +107,6 @@ class App extends Component {
       }
       self.loader = false;
       self.setState({ inputUpdated: true });
-      // console.log(inputValue,'search');
     })
     .catch((error) => {
       self.loader = false;
@@ -123,7 +120,6 @@ class App extends Component {
       inputValue = e;
     }
     else{
-      // inputValue = !e.target.value ? e.key : this.state.inputValue+e.key;
       inputValue = e.target.value;
     }
     this.searchImagesFromFlickr(inputValue);
@@ -132,7 +128,6 @@ class App extends Component {
   handleChange(e, valueFromList){
       this.searchImages(e, valueFromList);
       if(!valueFromList){
-        // this.listShow = true;
         this.setState({
           page    : 2,
           listShow: true
@@ -167,7 +162,6 @@ class App extends Component {
               inputValue={this.state.inputValue} 
               handleChange={this.handleChange}
               classes="pos-absolute width-100per"
-              // ref="inputField"
             />
           </Col>
         </Row>
