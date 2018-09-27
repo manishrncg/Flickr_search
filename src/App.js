@@ -4,6 +4,7 @@ import { Grid, Row, Col } from "react-bootstrap";
 import ModalCustom from "./components/ModalCustom";
 import List from "./components/List";
 import {DebounceInput} from 'react-debounce-input';
+import {throttle} from './utils/throttle';
 import dribbble from "./dribbble.gif";
 import './App.css';
 
@@ -26,14 +27,13 @@ class App extends Component {
     this.searchImages = this.searchImages.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.isBottom = this.isBottom.bind(this);
-    this.trackScrolling = this.trackScrolling.bind(this);
     this.addInputToLocalstorage = this.addInputToLocalstorage.bind(this);
     this.hideList = this.hideList.bind(this);
   }
 
   componentDidMount(){
     this.searchImagesFromFlickr(this.state.inputValue);
-    document.addEventListener('scroll', this.trackScrolling);
+    document.addEventListener('scroll', throttle(this.trackScrolling, 150));
     document.addEventListener('click', this.hideList);
   }
 
@@ -42,19 +42,21 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', this.trackScrolling);
+    document.removeEventListener('scroll', throttle(this.trackScrolling, 150));
     document.removeEventListener('click', this.hideList);
   }
 
   trackScrolling(){
-    const wrappedElement = document.getElementById('root');
-    const page = this.state.page;
-    this.hideList();
-    if (this.isBottom(wrappedElement)) {
-      this.searchImagesFromFlickr(this.state.inputValue, this.state.page);
-      this.setState({
-        page: (page+1)
-      });
+    if(this.state.inputValue){
+      const wrappedElement = document.getElementById('root');
+      const page = this.state.page;
+      this.hideList();
+      if (this.isBottom(wrappedElement)) {
+        this.searchImagesFromFlickr(this.state.inputValue, this.state.page);
+        this.setState({
+          page: (page+1)
+        });
+      }
     }
   };
 
