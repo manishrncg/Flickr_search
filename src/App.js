@@ -95,14 +95,12 @@ class App extends Component {
         if(page){
           let newImages = response.data.photos.photo.map((image, index)=>{
             let imagePath = `https://farm`+image.farm+`.staticflickr.com/`+image.server+`/`+image.id+`_`+image.secret+`.jpg`;
-            
             return <ModalCustom src={imagePath} key={image.id} alt={image.title} hideImageOutOfModal="" />
           });
           self.images = self.images.concat(newImages);
         }else{
           self.images = response.data.photos.photo.map((image, index)=>{
             let imagePath = `https://farm`+image.farm+`.staticflickr.com/`+image.server+`/`+image.id+`_`+image.secret+`.jpg`;
-            
             return <ModalCustom src={imagePath} key={image.id} alt={image.title} hideImageOutOfModal="" />
           });
         }
@@ -145,7 +143,6 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <Grid fluid={true}>
         <Row className="black-bg text-center text-white padding-btm-20 search-bar">
@@ -156,6 +153,7 @@ class App extends Component {
               className="search-field"
               minLength={1}
               debounceTimeout={150}
+              placeholder="Search here"
               value={this.state.inputValue}
               onChange={this.handleChange.bind(this)} />
             <List 
