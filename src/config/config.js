@@ -7,7 +7,7 @@ export default function api_url(page){
 			format			: "json",
 			nojsoncallback	: 1,
 			page			: page,
-			per_page		: 10
+			per_page		: 20
 		}
 	}
 };
